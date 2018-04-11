@@ -3,4 +3,4 @@
 #### CNN实验
 
 * TensorFlow基础
-* 跑MNIST
+* 跑MNISTS
