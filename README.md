@@ -9,7 +9,7 @@
 * 加载模型对中断的训练进行再训练实验
 * 跑Cifar10实验，知道怎么把数据形成batch进行训练
 * 跑Cats_vs_Dogs实验，知道怎么处理自己的数据并形成batch进行训练的实验
-* 处理自己的数据集形成batch进行训练（参考Cats_vs_Dogs实验）
+* 处理自己的数据集形成batch进行训练（训练和测试文件分别生成txt存储到电脑内存中）
 * 学习如何使用TensorFlow支持的tfrecord格式处理自己的数据并形成batch进行训练的实验
 * 搭建VGG16网络，知道如何用更深的的网络来进行训练
 * 加载VGG16在IMAGENET上训练的全部参数进行finetune实验
@@ -20,6 +20,7 @@
 * 可视化中间层特征(feature map)
 * 用提取的中间层特征结合SVM进行分类实验
 * 制作混淆矩阵
+* two-stream网络以及特征融合实现网络end-to-end的实验
 
 #### RNN/LSTM实验
 
