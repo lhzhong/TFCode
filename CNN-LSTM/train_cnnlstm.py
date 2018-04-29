@@ -17,10 +17,10 @@ TRAIN_RATIO = 0.7
 BATCH_SIZE = 128
 MAX_STEP = 30000
 
-data_dir = '/home/cpss/zhong/data/KTH_RGB/'
-model_dir = './model/cnnlstm30000/'
-logs_train_dir = './logs/cnnlstm30000_train/'
-logs_val_dir = './logs/cnnlstm30000_val/'
+data_dir = './data/KTH_RGB/'
+model_dir = './model/'
+logs_train_dir = './logs/train/'
+logs_val_dir = './logs/val/'
 train_txt = 'train.txt'
 val_txt = 'val.txt'
 
