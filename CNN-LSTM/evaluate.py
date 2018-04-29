@@ -16,8 +16,8 @@ CAPACITY = 2000
 TRAIN_RATIO = 0.7
 BATCH_SIZE = 128
 
-data_dir = '/home/cpss/zhong/data/KTH_RGB/'
-model_dir = './model/cnnlstm60000/'
+data_dir = './data/KTH_RGB/'
+model_dir = './model/'
 val_txt = 'val.txt'
 
 def evaluate_running():
