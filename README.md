@@ -20,11 +20,14 @@
 * 可视化中间层特征(feature map)
 * 用提取的中间层特征结合SVM进行分类实验
 * 制作混淆矩阵
-* two-stream网络以及特征融合实现网络end-to-end的实验
 
 #### RNN/LSTM实验
 
 * 用LSTM跑手写体实验
 * 用LSTM跑自己数据集
+
+#### 项目实验
+* two-stream网络以及特征融合实现网络end-to-end的实验
+* CNN-LSTM网络实验
 
 ......
