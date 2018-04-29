@@ -17,7 +17,7 @@ TRAIN_RATIO = 0.7
 BATCH_SIZE = 128
 MAX_STEP = 10000
 
-data_dir = '/home/cpss/zhong/Experiments/KTH_RGB/data/KTH_RGB/'
+data_dir = './data/KTH_RGB/'
 model_dir = './model/'
 new_model_dir = './model/retrain/'
 logs_train_dir = './logs/retrain_train/'
