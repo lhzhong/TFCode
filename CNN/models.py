@@ -18,22 +18,9 @@ class model(object):
         self.n_classes = n_classes
         self.is_pretrain = is_pretrain
 
-    def LeNet(self):
+    def LeNet5(self):
     
-        with tf.name_scope('LeNet'):
-            
-            self.conv1 = tools.conv('conv1', self.input, 32, kernel_size=[5,5], stride=[1,1,1,1], is_trainable=is_trainable)
-            self.pool1 = tools.pool('pool1', self.conv1, kernel=[1,2,2,1], stride=[1,2,2,1], is_max_pool=True)
-            
-            self.conv2 = tools.conv('conv2', self.pool1, 64, kernel_size=[5,5], stride=[1,1,1,1], is_trainable=is_trainable)
-            self.pool2 = tools.pool('pool2', self.conv2, kernel=[1,2,2,1], stride=[1,2,2,1], is_max_pool=True)
-            
-            self.full_connection = tools.FC_layer('full_connection', self.pool2, out_nodes=128)
-            self.output = tools.FC_layer('output', self.full_connection, out_nodes=n_classes,use_relu=False)
-
-    def AlexNet(self):
-        
-        with tf.name_scope('AlexNet'):
+        with tf.name_scope('LeNet5'):
             
             self.conv1 = tools.conv('conv1', self.input, 16, kernel_size=[3,3], stride=[1,1,1,1], is_pretrain=self.is_pretrain)
             self.pool1 = tools.pool('pool1', self.conv1, kernel=[1,3,3,1], stride=[1,2,2,1], is_max_pool=True, is_norm=True)
@@ -47,7 +34,30 @@ class model(object):
             self.fc2 = tools.FC_layer('local4', self.norm1, out_nodes=128)
             self.norm2 = tools.batch_norm('batch_norm2', self.fc2)
     
-            self.fc3 = tools.FC_layer('softmax_linear', self.norm2, out_nodes=self.n_classes)
+            self.fc3 = tools.FC_layer('softmax_linear', self.norm2, out_nodes=self.n_classes, use_relu=False)
+
+    def AlexNet(self):
+        
+        with tf.name_scope('AlexNet'):
+            
+            self.conv1 = tools.conv('conv1', self.input, 96, kernel_size=[11,11], stride=[1,4,4,1], is_pretrain=self.is_pretrain)
+            self.pool1 = tools.pool('pool1', self.conv1, kernel=[1,3,3,1], stride=[1,2,2,1], is_max_pool=True, is_norm=True)
+            
+            self.conv2 = tools.conv('conv2', self.pool1, 256, kernel_size=[5,5], stride=[1,1,1,1], is_pretrain=self.is_pretrain)
+            self.pool2 = tools.pool('pool2', self.conv2, kernel=[1,3,3,1], stride=[1,2,2,1], is_max_pool=True, is_norm=True)
+            
+            self.conv3 = tools.conv('conv3', self.pool2, 384, kernel_size=[3,3], stride=[1,1,1,1], is_pretrain=self.is_pretrain)
+            self.conv4 = tools.conv('conv4', self.conv3, 384, kernel_size=[3,3], stride=[1,1,1,1], is_pretrain=self.is_pretrain)
+            self.conv5 = tools.conv('conv5', self.conv4, 256, kernel_size=[3,3], stride=[1,1,1,1], is_pretrain=self.is_pretrain)
+            self.pool5 = tools.pool('pool5', self.conv5, kernel=[1,3,3,1], stride=[1,2,2,1], is_max_pool=True, is_norm=True)
+            
+            self.fc1 = tools.FC_layer('fc6', self.pool5, out_nodes=4096)
+            self.norm1 = tools.batch_norm('batch_norm1', self.fc1)
+    
+            self.fc2 = tools.FC_layer('fc7', self.norm1, out_nodes=4096)
+            self.norm2 = tools.batch_norm('batch_norm2', self.fc2)
+    
+            self.fc3 = tools.FC_layer('softmax_linear', self.norm2, out_nodes=self.n_classes, use_relu=False)
 
     def VGG16(self):
     
@@ -82,4 +92,4 @@ class model(object):
             self.fc7 = tools.FC_layer('fc7', self.batch_norm1, out_nodes=4096)        
             self.batch_norm2 = tools.batch_norm('batch_norm2', self.fc7)  
               
-            self.fc8 = tools.FC_layer('fc8', self.batch_norm2, out_nodes=self.n_classes)
+            self.fc8 = tools.FC_layer('fc8', self.batch_norm2, out_nodes=self.n_classes, use_relu=False)
