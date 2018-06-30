@@ -28,8 +28,8 @@ img_h = 32
 img_w = 32
 
 data_path = './data/'
-filewriter_path = './tensorboard/'
-checkpoint_path = './checkpoints/'
+filewriter_path = './tensorboard/alexnet/'
+checkpoint_path = './checkpoints/alexnet/'
 
 
 def evaluate(sess, val_image, val_label):
@@ -109,7 +109,7 @@ if __name__ == '__main__':
         ys = tf.placeholder(tf.int32, shape=[batch_size, num_classes])
         keep_prob = tf.placeholder(tf.float32)
         
-        model = VGG16(xs, num_classes, keep_prob)
+        model = AlexNet(xs, num_classes, keep_prob)
         logits = model.logits
 
         loss = tools.losses(logits, ys)
