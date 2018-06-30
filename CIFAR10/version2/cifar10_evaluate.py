@@ -25,8 +25,6 @@ checkpoint_path = './checkpoints/alexnet/'
 def evaluate_running():
     with tf.Graph().as_default():
         
-        
-        
         # reading test data
         images, labels = cifar10_input.read_cifar10(data_path=test_data_path,
                                                     is_train=False,
