@@ -6,7 +6,7 @@ Created on Tue Apr  3 16:15:27 2018
 @author: zhong
 """
 """
-finetune是用在IMAGENET上的训练得到的Alexnet模型，
+finetune是用在IMAGENET上的训练得到的Alexnet模型
 """
 import os
 import os.path
@@ -17,22 +17,22 @@ import math
 import cifar10_input
 import tools
 
-from lenet5 import LeNet5
-from alexnet import AlexNet
-from vgg16 import VGG16
+from models.lenet5 import LeNet5
+from models.alexnet import AlexNet
+from models.vgg16 import VGG16
 
 num_classes = 10
 batch_size = 128
 learning_rate = 1e-3
 dropout_rate = 0.5
-max_step = 10000 
+max_step = 4000 
 img_h = 32
 img_w = 32
 train_layers = ['fc8', 'fc7', 'fc6']
 
 data_path = './data/'
-filewriter_path = './tensorboard/'
-checkpoint_path = './checkpoints/'
+filewriter_path = './tensorboard/alexnet_finetune/'
+checkpoint_path = './checkpoints/alexnet_finetune/'
 
 
 def evaluate(sess, val_image, val_label):
@@ -85,8 +85,8 @@ def train_running():
                     print('     **val loss = %.4f, val accuracy = %.2f%%**' % (val_loss, val_acc*100.0))
         
                 if step % 2000 == 0 or (step + 1) == max_step:
-                    checkpoint = os.path.join(checkpoint_path, 'model_step'+str(step+1)+'.ckpt')
-                    saver.save(sess, checkpoint)
+                    checkpoint = os.path.join(checkpoint_path, 'model.ckpt')
+                    saver.save(sess, checkpoint, global_step=step)
                     
         except tf.errors.OutOfRangeError:
             print('Done training -- epoch limit reached')
@@ -99,11 +99,11 @@ def train_running():
 if __name__ == '__main__':
     with tf.Graph().as_default():
 
-        train_batch, train_label_batch = cifar10_input.read_cifar10(data_dir=data_path,
+        train_batch, train_label_batch = cifar10_input.read_cifar10(data_path=data_path,
                                                                     is_train=True,
                                                                     batch_size= batch_size,
                                                                     shuffle=True)
-        val_batch, val_label_batch = cifar10_input.read_cifar10(data_dir=data_path,
+        val_batch, val_label_batch = cifar10_input.read_cifar10(data_path=data_path,
                                                                 is_train=False,
                                                                 batch_size= batch_size,
                                                                 shuffle=False)
@@ -112,7 +112,7 @@ if __name__ == '__main__':
         ys = tf.placeholder(tf.int32, shape=[batch_size, num_classes])
         keep_prob = tf.placeholder(tf.float32)
         
-        model = VGG16(xs, num_classes, keep_prob, skip_layer=train_layers)
+        model = AlexNet(xs, num_classes, keep_prob, skip_layer=train_layers)
         logits = model.logits
 
         loss = tools.losses(logits, ys)
