@@ -12,21 +12,23 @@ import tensorflow as tf
 
 import cifar10_input
 
-from lenet5 import LeNet5
-from alexnet import AlexNet
+from models.lenet5 import LeNet5
+from models.alexnet import AlexNet
 
 num_classes = 10
 batch_size = 128
+n_test = 10000
+test_data_path = './data/'
+checkpoint_path = './checkpoints/alexnet/'
+
 
 def evaluate_running():
     with tf.Graph().as_default():
         
-        model_dir = './model/'
-        test_dir = './data/'
-        n_test = 10000
+        
         
         # reading test data
-        images, labels = cifar10_input.read_cifar10(data_dir=test_dir,
+        images, labels = cifar10_input.read_cifar10(data_path=test_data_path,
                                                     is_train=False,
                                                     batch_size= batch_size,
                                                     shuffle=False)
@@ -41,7 +43,7 @@ def evaluate_running():
         with tf.Session() as sess:
             
             print("Reading checkpoints...")
-            ckpt = tf.train.get_checkpoint_state(model_dir)
+            ckpt = tf.train.get_checkpoint_state(checkpoint_path)
             if ckpt and ckpt.model_checkpoint_path:
                 global_step = ckpt.model_checkpoint_path.split('/')[-1].split('-')[-1]
                 saver.restore(sess, ckpt.model_checkpoint_path)
