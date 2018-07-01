@@ -32,7 +32,7 @@ class LeNet5(object):
         self.fc4 = fc(self.norm1, 192, name='fc4')
         self.norm2 = batch_norm(self.fc4)
 
-        self.logits = fc(self.norm2, self.num_classes, name='fc5')
+        self.logits = fc(self.norm2, self.num_classes, relu=False, name='fc5')
 
 
 def conv(x, filter_height, filter_width, num_filters, stride_y, stride_x, name,
